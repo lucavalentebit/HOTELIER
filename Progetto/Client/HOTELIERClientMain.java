@@ -21,13 +21,22 @@ public class HOTELIERClientMain {
         client.start();
     }
 
-    private void start(){
+    private void start() {
+        try {
+            socket = new Socket(SERVER_ADDRESS, SERVER_PORT);
+            input = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+            output = new PrintWriter(socket.getOutputStream(), true);
+            System.out.println("Connessione al server " + SERVER_ADDRESS + " sulla porta " + SERVER_PORT + " avvenuta con successo.");
+            
             Scanner scanner = new Scanner(System.in);
             while (true) {
                 showMenu();
                 String command = scanner.nextLine();
                 handleCommand(command, scanner);
             }
+        } catch (IOException e) {
+            System.out.println("Errore durante la connessione al server: " + e.getMessage());
+        }
     }
 
     private void sendMessage(String message) {
@@ -88,6 +97,7 @@ public class HOTELIERClientMain {
                 break;
 
             case "7":
+            sendMessage(command);
                 exit();
                 break;
 
@@ -125,7 +135,9 @@ public class HOTELIERClientMain {
         }
         sendMessage("logout");
         loggedIn = false;
-    }   private void searchHotel(Scanner scanner) {
+    }   
+    
+    private void searchHotel(Scanner scanner) {
         System.out.print("Nome dell'hotel: ");
         String hotelName = scanner.nextLine();
         System.out.print("Città: ");
