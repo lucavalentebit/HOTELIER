@@ -12,50 +12,92 @@ import com.google.gson.JsonObject; // scaricare la libreria da internet e metter
 public class HOTELIERClientMain {
 	private static final String SERVER_ADDRESS = "localhost";
 	private static final int SERVER_PORT = 8080;
-	private boolean loggedIn = false;
+	private static boolean loggedIn = false;
 	private BufferedReader input;
 	private PrintWriter output;
 	private Socket socket;
 	public static void main(String[] args) {
-		Scanner scanner = new Scanner(System.in);
-		System.out.println("1. Register");
-		System.out.println("2. Login");
-		System.out.println("3. Logout");
-		System.out.println("4. SearchHotel");
-		System.out.println("5. SearchAllHotels");
-		System.out.println("6. InsertReview");
-		System.out.println("7. ShowMyBadges");
-		System.out.println();
-		String user = scanner.nextLine();
-		
-	}
+        HOTELIERClientMain client = new HOTELIERClientMain();
+        client.start();
+    }
+
+    private void start(){
+            Scanner scanner = new Scanner(System.in);
+            while (true) {
+                showMenu();
+                String command = scanner.nextLine();
+                handleCommand(command, scanner);
+            }
+    }
+
+    private void sendMessage(String message) {
+        if (output != null) {
+            output.println(message);
+            try {
+                String response = input.readLine();
+                System.out.println("Risposta dal server: " + response);
+            } catch (IOException e) {
+                System.out.println("Errore nella ricezione della risposta dal server.");
+            }
+        }
+    }
+    
+    private void showMenu() {
+        System.out.println("Benvenuto su HOTELIER! Seleziona un'opzione:");
+        System.out.println("1. Register (Registra un nuovo utente)");
+        System.out.println("2. Login (Effettua il login)");
+        System.out.println("3. SearchHotel (Cerca un hotel)");
+        System.out.println("4. SearchAllHotels (Cerca tutti gli hotel di una città)");
+        System.out.println("5. InsertReview - Inserisci una recensione");
+        System.out.println("6. ShowMyBadges - Mostra i tuoi badge");
+        System.out.println("7. Exit - Esci dal programma");
+        }
 
 	private void handleCommand(String command, Scanner scanner ){
-		switch (command) {
-			case "register":
+		switch (command.toLowerCase()) {
+			case "1":
 				register(scanner);
 				break;
-			case "login":
+
+			case "2":
 				login(scanner);
-				break;	
-			case "logout":
-				logout();
 				break;
-			case "searchHotel":
-				searchHotel(scanner);
-				break;	
-			case "insertReview":
-				insertReview(scanner);
-				break;
-			case "searchAllHotels":
-				searchAllHotels(scanner);
-				break;
-		
-			default: System.out.println("Il comando " + command + " è sconosciuto, riprovare.");
-				break;
+
+			case "3":
+                searchHotel(scanner);
+                break;
+
+            case "4":
+                searchAllHotels(scanner);
+                break;
+
+            case "5":
+                if(loggedIn){
+                    insertReview(scanner);
+                } else {
+                    System.out.println("Devi effettuare il login per poter inserire una recensione.");
+                }
+                break;
+
+            case "6":
+                if(loggedIn){
+                    showMyBadges();
+                } else {
+                    System.out.println("Devi effettuare il login per poter visualizzare i tuoi badge.");
+                }
+                break;
+
+            case "7":
+                exit();
+                break;
+
+            default:
+                System.out.println("Comando sconosciuto. Riprova.");
+                break;
 		}
 	}
-	private void register(Scanner scanner) {
+	
+    private void register(Scanner scanner) {
         System.out.print("Username: ");
         String username = scanner.nextLine();
         System.out.print("Password: ");
@@ -116,20 +158,25 @@ public class HOTELIERClientMain {
     private void showMyBadges() {
         sendMessage("showMyBadges");
     }
-	private void sendMessage(String message) {
-        if (output != null) {
-            output.println(message);
-            try {
-                String response = input.readLine();
-                System.out.println("Risposta dal server: " + response);
-            } catch (IOException e) {
-                System.out.println("Errore nella ricezione della risposta dal server.");
+
+
+    private void exit() {
+        try {
+            if(socket != null) {
+                socket.close();
             }
+            if(input != null) {
+                input.close();
+            }
+            if (output != null) {
+                output.close();
+            }
+        } catch (IOException e) {
+            System.out.println("Errore durante la chiusura delle risorse: " + e.getMessage());
+        } finally {
+            System.out.println("Arrivederci!");
+            System.exit(0);
         }
     }
-	public class  ServerHandler {
-		
-		
-	}
 
 }
