@@ -11,14 +11,12 @@ public class HOTELIERServerMain {
         try  (ServerSocket serverSocket = new ServerSocket(port)){
             System.out.println("Server in ascolto sulla porta " + port);
             
-            while (true){
+            while(true){
                 try (Socket clientSocket = serverSocket.accept();
-                    BufferedReader input = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
-                    PrintWriter output = new PrintWriter(clientSocket.getOutputStream(), true)) {
+                     BufferedReader input = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
+                     PrintWriter output = new PrintWriter(clientSocket.getOutputStream(), true)) {
                     System.out.println("Connessione accettata da " + clientSocket.getRemoteSocketAddress());
-                    String request = input.readLine();
-                    handleMessages(input);
-                    System.out.println("Richiesta ricevuta: " + request);
+                    handleCommands(input, output, serverSocket);
                 } catch (Exception e) {
                     System.out.println("Errore durante la comunicazione con il client.");
                     e.printStackTrace();
@@ -30,33 +28,21 @@ public class HOTELIERServerMain {
             e.printStackTrace();
         }
     }
-    private static void handleMessages(BufferedReader input) {
-        try {
-            String message = input.readLine();
-            System.out.println("Messaggio ricevuto: " + message);
-            if (message.equals("7")) {
-                System.out.println("Chiusura della connessione.");
-                ServerSocket socket = null;
-                Socket clientSocket = null;
-                PrintWriter output = null;
-                try {
-                    output = new PrintWriter(clientSocket.getOutputStream(), true);
-                    System.out.println("Connessione accettata da " + clientSocket.getRemoteSocketAddress());
-                    String request = input.readLine();
-                    handleMessages(input);
-                    System.out.println("Richiesta ricevuta: " + request);
-                } catch (IOException e) {
-                    System.out.println("Errore durante la comunicazione con il client.");
-                    e.printStackTrace();
-                } finally {
-                    if (socket != null) {
-                        socket.close();
-                    }
-                    System.exit(0);
-                }
-            }
-        } catch (IOException e) {
-            System.out.println("Errore durante la ricezione del messaggio.");
+
+    private static void handleCommands(BufferedReader input, PrintWriter output, ServerSocket serverSocket) throws IOException {
+        String command = input.readLine();
+        switch(command){
+            case "7":
+                System.out.println("Ricevuta richiesta di chiusura del server.");
+                output.println("Server chiuso.");
+                serverSocket.close();
+                System.exit(0);
+                break;
+                
+                default:
+                    System.out.println("Comando sconosciuto.");
+                    output.println("Comando sconosciuto.");
+                    break;
         }
-    }
+    }       
 }

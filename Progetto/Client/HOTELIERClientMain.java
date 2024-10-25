@@ -44,8 +44,13 @@ public class HOTELIERClientMain {
             output.println(message);
             try {
                 String response = input.readLine();
-                System.out.println("Risposta dal server: " + response);
-            } catch (IOException e) {
+                if (response != null) {
+                    System.out.println("Risposta dal server: " + response);
+                } else {
+                    System.out.println("Nessuna risposta dal server.");
+                }
+            }
+             catch (IOException e) {
                 System.out.println("Errore nella ricezione della risposta dal server.");
             }
         }
