@@ -39,24 +39,8 @@ public class HOTELIERClientMain {
         }
     }
 
-    private void sendMessage(String message) {
-        if (output != null) {
-            output.println(message);
-            try {
-                String response = input.readLine();
-                if (response != null) {
-                    System.out.println("Risposta dal server: " + response);
-                } else {
-                    System.out.println("Nessuna risposta dal server.");
-                }
-            }
-             catch (IOException e) {
-                System.out.println("Errore nella ricezione della risposta dal server.");
-            }
-        }
-    }
-    
-    private void showMenu() {
+
+        private void showMenu() {
         System.out.println("Benvenuto su HOTELIER! Seleziona un'opzione:");
         System.out.println("1. Register (Registra un nuovo utente)");
         System.out.println("2. Login (Effettua il login)");
@@ -112,6 +96,26 @@ public class HOTELIERClientMain {
 		}
 	}
 	
+
+	
+    private void sendMessage(String message) {
+        if (output != null) {
+            output.println(message);
+            try {
+                String response = input.readLine();
+                if (response != null) {
+                    System.out.println("Risposta dal server: " + response);
+                } else {
+                    System.out.println("Nessuna risposta dal server.");
+                }
+            }
+             catch (IOException e) {
+                System.out.println("Errore nella ricezione della risposta dal server.");
+            }
+        }
+    }
+    
+
     private void register(Scanner scanner) {
         System.out.print("Username: ");
         String username = scanner.nextLine();
