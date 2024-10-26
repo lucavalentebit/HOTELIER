@@ -7,7 +7,7 @@ import java.net.Socket;
 import java.util.Scanner;
 
 import com.google.gson.Gson;
-import com.google.gson.JsonObject; // scaricare la libreria da internet e metterla dentro Libraries per un codice pulito
+import com.google.gson.JsonObject;
 
 public class HOTELIERClientMain {
 	private static final String SERVER_ADDRESS = "localhost";
