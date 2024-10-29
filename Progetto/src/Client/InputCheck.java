@@ -1,4 +1,4 @@
-package Client;
+package src.Client;
 
 import java.util.Set;
 import java.util.regex.Pattern;
