@@ -110,7 +110,7 @@ public class HOTELIERClientMain {
                 }
             }
              catch (IOException e) {
-                System.out.println("Errore nella ricezione della risposta dal server.");
+                System.out.println("Il server non risponde.");
             }
         }
     }
@@ -167,6 +167,7 @@ public class HOTELIERClientMain {
             } catch (IOException e) {
                 System.out.println("Errore durante la chiusura delle risorse: " + e.getMessage());
             } finally {
+                sendMessage("exit");
                 System.out.println("Arrivederci!");
                 System.exit(0);
             }

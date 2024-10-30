@@ -30,6 +30,7 @@ public class HOTELIERServerMain {
 
     private static void handleCommands(BufferedReader input, PrintWriter output, ServerSocket serverSocket) throws IOException {
         String command = input.readLine();
+        System.out.println("Comando ricevuto: " + command);
         switch(command){
             case "1":
                 //inserire richiamo a metodo per la registrazione
