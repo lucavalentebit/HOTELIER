@@ -87,7 +87,7 @@ public class HOTELIERClientMain {
 
             case "7":
             sendMessage(command);
-                exit();
+                logout();
                 break;
 
             default:
@@ -115,12 +115,28 @@ public class HOTELIERClientMain {
         }
     }
     
-
+    
     private void register(Scanner scanner) {
-        System.out.print("Username: ");
-        String username = scanner.nextLine();
-        System.out.print("Password: ");
-        String password = scanner.nextLine();
+        String username;
+        String password;
+        while(true){
+            System.out.print("Username: ");
+            username = scanner.nextLine();
+            if(InputCheck.isValidUsername(username)){
+                break;
+            } else {
+                System.out.println("Lo username deve contenere solo lettere e numeri e deve essere lungo tra 3 e 20 caratteri.");
+            }
+        }
+        while(true){
+            System.out.print("Password: ");
+            password = scanner.nextLine();
+            if(InputCheck.isValidPassword(password)){
+                break;
+            } else {
+                System.out.println("La password deve contenere almeno 8 caratteri, di cui almeno una lettera maiuscola, una lettera minuscola e un numero.");
+            }
+        }
         
         String message = "register " + username + " " + password;
         sendMessage(message);
@@ -138,13 +154,24 @@ public class HOTELIERClientMain {
     }
 
     private void logout() {
-        if (!loggedIn) {
-            System.out.println("Non sei loggato.");
-            return;
+            try {
+                if(socket != null) {
+                    socket.close();
+                }
+                if(input != null) {
+                    input.close();
+                }
+                if (output != null) {
+                    output.close();
+                }
+            } catch (IOException e) {
+                System.out.println("Errore durante la chiusura delle risorse: " + e.getMessage());
+            } finally {
+                System.out.println("Arrivederci!");
+                System.exit(0);
+            }
         }
-        sendMessage("logout");
-        loggedIn = false;
-    }   
+       
     
     private void searchHotel(Scanner scanner) {
         System.out.print("Nome dell'hotel: ");
@@ -180,24 +207,5 @@ public class HOTELIERClientMain {
         sendMessage("showMyBadges");
     }
 
-
-    private void exit() {
-        try {
-            if(socket != null) {
-                socket.close();
-            }
-            if(input != null) {
-                input.close();
-            }
-            if (output != null) {
-                output.close();
-            }
-        } catch (IOException e) {
-            System.out.println("Errore durante la chiusura delle risorse: " + e.getMessage());
-        } finally {
-            System.out.println("Arrivederci!");
-            System.exit(0);
-        }
-    }
 
 }
