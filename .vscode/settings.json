@@ -1,9 +1,8 @@
 {
     "java.project.sourcePaths": [
-        "Progetto",
-        "Progetto/Server"
+        "Progetto"
     ],
     "java.project.referencedLibraries": [
-        "Progetto/libs/gson-2.11.0.jar"
+        "Progetto/src/libs/gson-2.11.0.jar"
     ]
 }

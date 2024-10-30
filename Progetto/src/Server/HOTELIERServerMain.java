@@ -1,3 +1,4 @@
+package src.Server;
 import java.io.*;
 import java.net.*;
 
@@ -30,6 +31,30 @@ public class HOTELIERServerMain {
     private static void handleCommands(BufferedReader input, PrintWriter output, ServerSocket serverSocket) throws IOException {
         String command = input.readLine();
         switch(command){
+            case "1":
+                //inserire richiamo a metodo per la registrazione
+                output.println("Registrazione effettuata.");
+                break;
+            case "2":
+                //inserire richiamo a metodo per il login
+                output.println("Login effettuato.");
+                break;
+            case "3":
+                //inserire richiamo a metodo per la ricerca di un hotel
+                output.println("Hotel trovato.");
+                break;
+            case "4":
+                //inserire richiamo a metodo per la ricerca di tutti gli hotel di una città
+                output.println("Hotel trovati.");
+                break;
+            case "5":
+                //inserire richiamo a metodo per l'inserimento di una recensione
+                output.println("Recensione inserita.");
+                break;
+            case "6":
+                //inserire richiamo a metodo per la visualizzazione dei badge
+                output.println("Badge visualizzati.");
+                break;
             case "7":
                 System.out.println("Ricevuta richiesta di chiusura del server.");
                 output.println("Server chiuso.");
