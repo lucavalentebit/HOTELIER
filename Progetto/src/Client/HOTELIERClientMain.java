@@ -150,7 +150,7 @@ public class HOTELIERClientMain {
 
         String message = "login " + username + " " + password;
         sendMessage(message);
-        loggedIn = true; // Assumiamo login riuscito per semplicità, ma dovrebbe essere confermato dal server
+        
     }
 
     private void logout() {
