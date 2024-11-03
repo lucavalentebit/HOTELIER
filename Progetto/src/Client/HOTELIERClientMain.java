@@ -117,30 +117,30 @@ public class HOTELIERClientMain {
     
     
     private void register(Scanner scanner) {
-        String username;
-        String password;
-        while(true){
-            System.out.print("Username: ");
-            username = scanner.nextLine();
-            if(InputCheck.isValidUsername(username)){
-                break;
-            } else {
-                System.out.println("Lo username deve contenere solo lettere e numeri e deve essere lungo tra 3 e 20 caratteri.");
+        try {
+            String response;
+            response = input.readLine();
+
+            if(response != null && response.equals("Inserire username:")){
+                String username = scanner.nextLine();
+                output.println(username);
+                response = input.readLine();
+                if(response != null && response.equals("Inserire password:")){
+                    String password = scanner.nextLine();
+                    output.println(password);
+                    response = input.readLine();
+                    if(response != null && response.equals("OK")){
+                        System.out.println("Registrazione effettuata con successo.");
+                    } else {
+                        System.out.println("Registrazione fallita.");
+                    }
+                }
             }
-        }
-        while(true){
-            System.out.print("Password: ");
-            password = scanner.nextLine();
-            if(InputCheck.isValidPassword(password)){
-                break;
-            } else {
-                System.out.println("La password deve contenere almeno 8 caratteri, di cui almeno una lettera maiuscola, una lettera minuscola e un numero.");
-            }
-        }
-        
-        String message = "register " + username + " " + password;
-        sendMessage(message);
+        } 
+    catch (IOException e) {
+        System.out.println("Errore durante la registrazione: " + e.getMessage());
     }
+}
 
     private void login(Scanner scanner) {
         System.out.print("Username: ");

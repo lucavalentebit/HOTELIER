@@ -33,8 +33,21 @@ public class HOTELIERServerMain {
         System.out.println("Comando ricevuto: " + command);
         switch(command){
             case "1":
-                //inserire richiamo a metodo per la registrazione
-                output.println("Registrazione effettuata.");
+            input.readLine();
+                if (input.readLine().equals("1")) {
+                    output.println("Inserire username:");
+                    String username = input.readLine();
+                    if(username.equals("admin")){
+                        output.println("Username già in uso.");
+                        break;
+                    }
+                    output.println("Inserire password:");
+                    String password = input.readLine();
+                    
+                } else {
+                    output.println("Registrazione fallita.");
+                }                    
+            output.println("Registrazione effettuata.");
                 break;
             case "2":
                 //inserire richiamo a metodo per il login

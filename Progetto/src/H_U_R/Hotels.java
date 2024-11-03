@@ -1,6 +1,7 @@
 package src.H_U_R;
 
 import java.util.*;
+import com.google.gson.Gson;
 
 public class Hotels {
     private int id;
@@ -107,5 +108,39 @@ public class Hotels {
         this.reviews = reviews;
     }
 
+    public void setTotalRating(int totalRating) {
+        this.totalRating = totalRating;
+    }
+
+    @Override
+    public String toString() {
+        String reviews = "";
+        if(this.reviews != null) {
+            for(int i=0; i<this.reviews.size(); i++) {
+                reviews += this.reviews.get(i).toString();
+                if(i != this.reviews.size() - 1) {
+                    reviews += "\n";
+                }
+            }
+        } else {
+            reviews = "Nessuna recensione presente";
+        }
+        return "__________________________________________ \n" + 
+                "Hotel: \n" +
+                "--- ID: " + id + "\n" +
+                "--- Nome: " + name + "\n" +
+                "--- Descrizione: " + description + "\n" +
+                "--- Città: " + city + "\n" +
+                "--- Telefono: " + phone + "\n" +
+                "--- Servizi: " + services + "\n" +
+                "--- Valutazione Globale: " + rate + "\n" +
+                "--- Valutazioni: \n" + reviews + "\n" +
+                "__________________________________________";
+    }
+
+    public String toStringJSON() {
+        Gson gson = new Gson();
+        return gson.toJson(this);
+    }
 
 }
