@@ -1,0 +1,11 @@
+
+4/11
+-Creare threadpool prima di handleCommands
+-Spostare handleCommand dentro Threads
+-Inizializzare DB da parte di server per persistenza
+-Durante la deserializzazione da json, dovrò fare sì che la costruzione del mio utente che ha le sue cose
+     dovrò avere una variabile persistente che mi deve assicurare che quell'utente è loggato in quel momento.
+     Nel momento in cui faccio logout/chiudo thread, significa che è sloggato e quindi faccio passare a 0.
+
+
+-Mi servono due metodi per il json Utente: uno me lo deserializza l'altro me lo crea/cerca

@@ -36,6 +36,7 @@ public class User {
 
     /*
      * Setters
+     * vanno fatti con la deserializzazione
      */
     public void setUsername(String username) {
         this.username = username;
@@ -52,6 +53,12 @@ public class User {
     public void setLoggedIn(boolean loggedIn) {
         this.loggedIn = loggedIn;
     }
+
+
+
+    
+
+
     @Override
     public String toString() {
         return "User{" +

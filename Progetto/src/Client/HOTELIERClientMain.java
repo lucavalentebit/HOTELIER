@@ -54,24 +54,24 @@ public class HOTELIERClientMain {
 	private void handleCommand(String command, Scanner scanner ){
 		switch (command.toLowerCase()) {
 			case "1":
-				register(scanner);
+				sendMessage("register");;
 				break;
 
 			case "2":
-				login(scanner);
+				sendMessage("login");;
 				break;
 
 			case "3":
-                searchHotel(scanner);
+                sendMessage("searchHotel");
                 break;
 
             case "4":
-                searchAllHotels(scanner);
+                sendMessage("searchAllHotels");;
                 break;
 
             case "5":
                 if(loggedIn){
-                    insertReview(scanner);
+                    sendMessage("insertReview");
                 } else {
                     System.out.println("Devi effettuare il login per poter inserire una recensione.");
                 }
@@ -79,15 +79,16 @@ public class HOTELIERClientMain {
 
             case "6":
                 if(loggedIn){
-                    showMyBadges();
+                    sendMessage("showMyBadges");;
                 } else {
                     System.out.println("Devi effettuare il login per poter visualizzare i tuoi badge.");
                 }
                 break;
 
             case "7":
-            sendMessage(command);
-                logout();
+                sendMessage("exit");
+                System.out.println("Arrivederci!");
+                System.exit(0);
                 break;
 
             default:
@@ -114,99 +115,4 @@ public class HOTELIERClientMain {
             }
         }
     }
-    
-    
-    private void register(Scanner scanner) {
-        try {
-            String response;
-            response = input.readLine();
-
-            if(response != null && response.equals("Inserire username:")){
-                String username = scanner.nextLine();
-                output.println(username);
-                response = input.readLine();
-                if(response != null && response.equals("Inserire password:")){
-                    String password = scanner.nextLine();
-                    output.println(password);
-                    response = input.readLine();
-                    if(response != null && response.equals("OK")){
-                        System.out.println("Registrazione effettuata con successo.");
-                    } else {
-                        System.out.println("Registrazione fallita.");
-                    }
-                }
-            }
-        } 
-    catch (IOException e) {
-        System.out.println("Errore durante la registrazione: " + e.getMessage());
-    }
-}
-
-    private void login(Scanner scanner) {
-        System.out.print("Username: ");
-        String username = scanner.nextLine();
-        System.out.print("Password: ");
-        String password = scanner.nextLine();
-
-        String message = "login " + username + " " + password;
-        sendMessage(message);
-        
-    }
-
-    private void logout() {
-            try {
-                if(socket != null) {
-                    socket.close();
-                }
-                if(input != null) {
-                    input.close();
-                }
-                if (output != null) {
-                    output.close();
-                }
-            } catch (IOException e) {
-                System.out.println("Errore durante la chiusura delle risorse: " + e.getMessage());
-            } finally {
-                sendMessage("exit");
-                System.out.println("Arrivederci!");
-                System.exit(0);
-            }
-        }
-       
-    
-    private void searchHotel(Scanner scanner) {
-        System.out.print("Nome dell'hotel: ");
-        String hotelName = scanner.nextLine();
-        System.out.print("Città: ");
-        String city = scanner.nextLine();
-
-        String message = "searchHotel " + hotelName + " " + city;
-        sendMessage(message);
-    }
-
-    private void searchAllHotels(Scanner scanner) {
-        System.out.print("Città: ");
-        String city = scanner.nextLine();
-
-        String message = "searchAllHotels " + city;
-        sendMessage(message);
-    }
-
-    private void insertReview(Scanner scanner) {
-        System.out.print("Nome dell'hotel: ");
-        String hotelName = scanner.nextLine();    System.out.print("Città: ");
-        String city = scanner.nextLine();
-        System.out.print("Punteggio globale (0-5): ");
-        int globalScore = scanner.nextInt();
-        scanner.nextLine(); // Consuma il newline rimasto
-
-        String message = "insertReview " + hotelName + " " + city + " " + globalScore;
-        sendMessage(message);
-    }
-
-    private void showMyBadges() {
-        sendMessage("showMyBadges");
-    }
-
-
 }
