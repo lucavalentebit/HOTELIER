@@ -54,8 +54,8 @@ public class HOTELIERClientMain {
 	private void handleCommand(String command, Scanner scanner ){
 		switch (command.toLowerCase()) {
 			case "1":
-				sendMessage("register");;
-				break;
+                register(scanner);
+                break;
 
 			case "2":
 				sendMessage("login");;
@@ -113,6 +113,43 @@ public class HOTELIERClientMain {
              catch (IOException e) {
                 System.out.println("Il server non risponde.");
             }
+        }
+    }
+    private void register(Scanner scanner) {
+        try {
+            // Invia il comando "register" al server
+            output.println("register");
+
+            // Attendi la richiesta di username
+            String serverResponse = input.readLine();
+            if (serverResponse != null && serverResponse.startsWith("Inserisci username:")) {
+                System.out.print("Username: ");
+                String username = scanner.nextLine();
+                output.println(username);
+            }
+
+            // Attendi la risposta dopo l'inserimento dell'username
+            serverResponse = input.readLine();
+            if (serverResponse != null && serverResponse.startsWith("Registrazione fallita")) {
+                System.out.println(serverResponse);
+                return;
+            }
+
+            // Attendi la richiesta di password
+            serverResponse = input.readLine();
+            if (serverResponse != null && serverResponse.startsWith("Inserisci password:")) {
+                System.out.print("Password: ");
+                String password = scanner.nextLine();
+                output.println(password);
+            }
+
+            // Attendi la conferma finale
+            serverResponse = input.readLine();
+            if (serverResponse != null) {
+                System.out.println(serverResponse);
+            }
+        } catch (IOException e) {
+            System.out.println("Errore durante la registrazione: " + e.getMessage());
         }
     }
 }

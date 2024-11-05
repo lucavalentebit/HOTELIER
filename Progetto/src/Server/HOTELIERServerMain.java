@@ -8,7 +8,7 @@ public class HOTELIERServerMain {
 
     private static ExecutorService threadPool = Executors.newCachedThreadPool();
 
-    
+
     /*public static void main(String args[]){
         String serverAddress = "localhost";
         int port = 8080;
@@ -54,7 +54,7 @@ public class HOTELIERServerMain {
             e.printStackTrace();
         }
         finally {
-            threadPool.shutdown();
+            dataHandler.shutdown();
         }   
-}       
+    }       
 }

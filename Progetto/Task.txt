@@ -2,10 +2,15 @@
 4/11
 -Creare threadpool prima di handleCommands
 -Spostare handleCommand dentro Threads
--Inizializzare DB da parte di server per persistenza
+-Inizializzare DB da parte di server per persistenza -> utilizzare come base progetto di Nicola
 -Durante la deserializzazione da json, dovrò fare sì che la costruzione del mio utente che ha le sue cose
      dovrò avere una variabile persistente che mi deve assicurare che quell'utente è loggato in quel momento.
-     Nel momento in cui faccio logout/chiudo thread, significa che è sloggato e quindi faccio passare a 0.
-
+     Nel momento in cui faccio logout/chiudo thread, significa che è sloggato e quindi faccio passare a 0.    
+     Quando faccio register, lui deve fare anche login (avrò un utente vuoto, e farò set login = 1, e quando faccio set logout lo butto a false/0)
 
 -Mi servono due metodi per il json Utente: uno me lo deserializza l'altro me lo crea/cerca
+
+5/11
+Punto della situazione: attualmente va risolto il problema del messaggio che non chiede Password
+Successivamente va implementato ENTRO DOMANI il DB, altrimenti siamo belli che nella merda. Poi vorrei iniziare la parte delle reviews e della manipolazione del json
+Giovedì devo porcodio finire
