@@ -14,3 +14,6 @@
 Punto della situazione: attualmente va risolto il problema del messaggio che non chiede Password
 Successivamente va implementato ENTRO DOMANI il DB, altrimenti siamo belli che nella merda. Poi vorrei iniziare la parte delle reviews e della manipolazione del json
 Giovedì devo porcodio finire
+
+6/11
+Devo definire l'algoritmo di ranking entro stasera per lo show delle cose 

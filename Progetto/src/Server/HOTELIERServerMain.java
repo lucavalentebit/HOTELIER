@@ -43,18 +43,26 @@ public class HOTELIERServerMain {
         try  (ServerSocket serverSocket = new ServerSocket(port)){
             System.out.println("Server in ascolto sulla porta " + port);
             
-            while(true){
-                Socket clientSocket = serverSocket.accept();
-                System.out.println("Connessione accettata da " + clientSocket.getRemoteSocketAddress());
+            while (!dataHandler.isShutdownRequested()) {
+                try {
+                    Socket clientSocket = serverSocket.accept();
+                    System.out.println("Connessione accettata da " + clientSocket.getRemoteSocketAddress());
 
-                dataHandler.handleClient(clientSocket);
+                    dataHandler.handleClient(clientSocket);
+                } catch (IOException e) {
+                    if (dataHandler.isShutdownRequested()) {
+                        System.out.println("Server in fase di spegnimento.");
+                    } else {
+                        System.out.println("Errore durante l'accettazione della connessione: " + e.getMessage());
+                    }
+                }
             }
+            System.out.println("Chiusura del server.");
         } catch (IOException e) {
-            System.out.println("Errore durante l'apertura del socket server."+ e.getMessage());
+            System.out.println("Errore durante l'apertura del socket server: " + e.getMessage());
             e.printStackTrace();
-        }
-        finally {
+        } finally {
             dataHandler.shutdown();
-        }   
-    }       
+        }
+    }
 }

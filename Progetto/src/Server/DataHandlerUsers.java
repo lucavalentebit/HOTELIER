@@ -22,6 +22,7 @@ import src.H_U_R.User;
 
 import java.io.*;
 import java.lang.reflect.Type;
+import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ExecutorService;
@@ -29,18 +30,22 @@ import java.util.concurrent.Executors;
 
 
 public class DataHandlerUsers {
-    private static final String USERS_FILE = "users.json";
+    private static final String USERS_FILE = "Progetto/src/Data/Users.json";
     private ConcurrentHashMap<String, User> users;
     private ExecutorService threadPool;
-
+    private volatile boolean shutdownRequested = false;
+    private ServerSocket serverSocket;
+    // Costruttore
     public DataHandlerUsers() {
         users = loadUsers();
         threadPool = Executors.newCachedThreadPool(); //inizializziazione TP
     }
+    // Chiude il thread pool e salva gli utenti
     public void shutdown() {
         threadPool.shutdown();
         saveUsers(); //persistenza degli utenti a chiusura del server
     }
+    // Gestisce la connessione con un client
     public void handleClient(Socket clientSocket) {
         threadPool.execute(new ClientHandler(clientSocket, this));
     }
@@ -103,5 +108,25 @@ public class DataHandlerUsers {
     public synchronized void updateUser(User user) {
         users.put(user.getUsername(), user);
         saveUsers();
+    }
+
+    // Rimuove un utente
+    public void setServerSocket(ServerSocket serverSocket) {
+        this.serverSocket = serverSocket;
+    }
+    // Richiesta di chiusura del server
+    public void requestShutdown() {
+        shutdownRequested = true;
+        try {
+            if (serverSocket != null && !serverSocket.isClosed()) {
+                serverSocket.close();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    // Verifica se è stata richiesta la chiusura del server
+    public boolean isShutdownRequested() {
+        return shutdownRequested;
     }
 }

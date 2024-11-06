@@ -58,20 +58,20 @@ public class HOTELIERClientMain {
                 break;
 
 			case "2":
-				sendMessage("login");;
+				login(scanner);
 				break;
 
 			case "3":
-                sendMessage("searchHotel");
+                searchHotel(scanner);
                 break;
 
             case "4":
-                sendMessage("searchAllHotels");;
+                searchAllHotels(scanner);
                 break;
 
             case "5":
                 if(loggedIn){
-                    sendMessage("insertReview");
+                    insertReview(scanner);
                 } else {
                     System.out.println("Devi effettuare il login per poter inserire una recensione.");
                 }
@@ -79,7 +79,7 @@ public class HOTELIERClientMain {
 
             case "6":
                 if(loggedIn){
-                    sendMessage("showMyBadges");;
+                    showMyBadges();
                 } else {
                     System.out.println("Devi effettuare il login per poter visualizzare i tuoi badge.");
                 }
@@ -115,7 +115,7 @@ public class HOTELIERClientMain {
             }
         }
     }
-    private void register(Scanner scanner) {
+    /*private void register(Scanner scanner) {
         try {
             // Invia il comando "register" al server
             output.println("register");
@@ -150,6 +150,176 @@ public class HOTELIERClientMain {
             }
         } catch (IOException e) {
             System.out.println("Errore durante la registrazione: " + e.getMessage());
+        }
+    }*/
+
+
+    private void register(Scanner scanner) {
+        try {
+            // Invia il comando "register" al server
+            output.println("register");
+    
+            // Attendi la richiesta di username
+            String serverResponse = input.readLine();
+            if (serverResponse != null && serverResponse.startsWith("Inserisci username:")) {
+                System.out.print("Username: ");
+                String username = scanner.nextLine();
+                output.println(username);
+    
+                // Attendi la risposta del server dopo aver inviato l'username
+                serverResponse = input.readLine();
+                if (serverResponse != null) {
+                    if (serverResponse.startsWith("Registrazione fallita")) {
+                        System.out.println(serverResponse);
+                        return;
+                    } else if (serverResponse.startsWith("Inserisci password:")) {
+                        // Richiedi la password all'utente
+                        System.out.print("Password: ");
+                        String password = scanner.nextLine();
+                        output.println(password);
+    
+                        // Attendi la conferma finale dal server
+                        serverResponse = input.readLine();
+                        if (serverResponse != null) {
+                            System.out.println(serverResponse);
+                        }
+                    } else {
+                        System.out.println("Risposta inaspettata dal server: " + serverResponse);
+                    }
+                }
+            } else {
+                System.out.println("Risposta inaspettata dal server: " + serverResponse);
+            }
+        } catch (IOException e) {
+            System.out.println("Errore durante la registrazione: " + e.getMessage());
+        }
+    }
+
+    private void login(Scanner scanner) {
+        try {
+            // Invia il comando "login" al server
+            output.println("login");
+    
+            // Attende la richiesta di username
+            String serverResponse = input.readLine();
+            if (serverResponse != null && serverResponse.startsWith("Inserisci username:")) {
+                System.out.print("Username: ");
+                String username = scanner.nextLine();
+                output.println(username);
+            }
+    
+            // Attende la richiesta di password
+            serverResponse = input.readLine();
+            if (serverResponse != null && serverResponse.startsWith("Inserisci password:")) {
+                System.out.print("Password: ");
+                String password = scanner.nextLine();
+                output.println(password);
+            }
+    
+            // Attende la risposta finale
+            serverResponse = input.readLine();
+            if (serverResponse != null) {
+                System.out.println(serverResponse);
+                if (serverResponse.equals("Login effettuato con successo.")) {
+                    loggedIn = true;
+                }
+            }
+    
+        } catch (IOException e) {
+            System.out.println("Errore durante il login: " + e.getMessage());
+        }
+    }
+
+    private void searchHotel(Scanner scanner) {
+        try {
+            // Invia il comando "searchhotel" al server
+            output.println("searchhotel");
+    
+            // Richiedi il nome dell'hotel
+            System.out.print("Inserisci il nome dell'hotel da cercare: ");
+            String hotelName = scanner.nextLine();
+            output.println(hotelName);
+    
+            // Ricevi la risposta dal server
+            String serverResponse;
+            while ((serverResponse = input.readLine()) != null && !serverResponse.equals("END")) {
+                System.out.println(serverResponse);
+            }
+    
+        } catch (IOException e) {
+            System.out.println("Errore durante la ricerca dell'hotel: " + e.getMessage());
+        }
+    }
+
+    private void searchAllHotels(Scanner scanner) {
+        try {
+            // Invia il comando "searchallhotels" al server
+            output.println("searchallhotels");
+    
+            // Richiedi il nome della città
+            System.out.print("Inserisci la città: ");
+            String city = scanner.nextLine();
+            output.println(city);
+    
+            // Ricevi la risposta dal server
+            String serverResponse;
+            while ((serverResponse = input.readLine()) != null && !serverResponse.equals("END")) {
+                System.out.println(serverResponse);
+            }
+    
+        } catch (IOException e) {
+            System.out.println("Errore durante la ricerca degli hotel: " + e.getMessage());
+        }
+    }
+
+    private void insertReview(Scanner scanner) {
+        try {
+            output.println("insertreview");
+    
+            System.out.print("Inserisci il nome dell'hotel: ");
+            String hotelName = scanner.nextLine();
+            output.println(hotelName);
+    
+            System.out.print("Punteggio generale (0-5): ");
+            int overallRating = Integer.parseInt(scanner.nextLine());
+            System.out.print("Punteggio Posizione (0-5): ");
+            int positionRating = Integer.parseInt(scanner.nextLine());
+            System.out.print("Punteggio Pulizia (0-5): ");
+            int cleanlinessRating = Integer.parseInt(scanner.nextLine());
+            System.out.print("Punteggio Servizio (0-5): ");
+            int serviceRating = Integer.parseInt(scanner.nextLine());
+            System.out.print("Punteggio Prezzo (0-5): ");
+            int priceRating = Integer.parseInt(scanner.nextLine());
+    
+            output.println(overallRating);
+            output.println(positionRating);
+            output.println(cleanlinessRating);
+            output.println(serviceRating);
+            output.println(priceRating);
+    
+            String serverResponse = input.readLine();
+            if (serverResponse != null) {
+                System.out.println(serverResponse);
+            }
+    
+        } catch (IOException e) {
+            System.out.println("Errore durante l'inserimento della recensione: " + e.getMessage());
+        }
+    }
+
+    private void showMyBadges() {
+        try {
+            // Invia il comando "showmybadges" al server
+            output.println("showmybadges");
+    
+            // Ricevi la risposta dal server
+            String serverResponse = input.readLine();
+            if (serverResponse != null) {
+                System.out.println("Il tuo badge: " + serverResponse);
+            }
+    
+        } catch (IOException e) {
+            System.out.println("Errore durante la visualizzazione dei badge: " + e.getMessage());
         }
     }
 }

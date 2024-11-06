@@ -4,28 +4,28 @@ import java.util.Date;
 import java.text.SimpleDateFormat;
 
 public class Review {
-    private float globalScore;
-    private float cleaningScore;
-    private float servicesScore;
-    private float positionScore;
-    private float qualityScore;
-    private long date;
+    private String username;
+    private int overallRating;
+    private int positionRating;
+    private int cleanlinessRating;
+    private int servicesRating;
+    private int priceRating;
+    private long timestamp;
 
-
-    public Review(float globalScore, float cleaningScore, float servicesScore, float positionScore, float qualityScore, long date) {
-        this.globalScore = globalScore;
-        this.cleaningScore = cleaningScore;
-        this.servicesScore = servicesScore;
-        this.positionScore = positionScore;
-        this.qualityScore = qualityScore;
-        this.date = date;
+    public Review(String username, int overallRating, int positionRating, int cleanlinessRating, int servicesRating, int priceRating) {
+        this.username = username;
+        this.overallRating = overallRating;
+        this.positionRating = positionRating;
+        this.cleanlinessRating = cleanlinessRating;
+        this.servicesRating = servicesRating;
+        this.priceRating = priceRating;
+        this.timestamp = System.currentTimeMillis();
     }
 
     /*
-     * getters
-     */
-    public float getGlobalScore() {
-        return globalScore;
+     
+    public float getOverallRating() {
+        return overallRating
     }
 
     public float getCleaningScore() {
@@ -48,9 +48,9 @@ public class Review {
         return date;
     }
 
-    /*
+    
      * setters
-     */
+     
 
     public void setGlobalScore(float globalScore) {
         this.globalScore = globalScore;
@@ -76,16 +76,81 @@ public class Review {
         this.date = date;
     }
 
+    public int getOverallRating() {
+        return overallRating;
+    }
+
+    public long getTimestamp() {
+        return timestamp;
+    }
+*/
+public String getUsername() {
+    return username;
+}
+
+public int getOverallRating() {
+    return overallRating;
+}
+
+public int getPositionRating() {
+    return positionRating;
+}
+
+public int getCleanlinessRating() {
+    return cleanlinessRating;
+}
+
+public int getServicesRating() {
+    return servicesRating;
+}
+
+public int getPriceRating() {
+    return priceRating;
+}
+
+public long getTimestamp() {
+    return timestamp;
+}
+
+// Setters
+public void setUsername(String username) {
+    this.username = username;
+}
+
+public void setOverallRating(int overallRating) {
+    this.overallRating = overallRating;
+}
+
+public void setPositionRating(int positionRating) {
+    this.positionRating = positionRating;
+}
+
+public void setCleanlinessRating(int cleanlinessRating) {
+    this.cleanlinessRating = cleanlinessRating;
+}
+
+public void setServicesRating(int servicesRating) {
+    this.servicesRating = servicesRating;
+}
+
+public void setPriceRating(int priceRating) {
+    this.priceRating = priceRating;
+}
+
+public void setTimestamp(long timestamp) {
+    this.timestamp = timestamp;
+}
+
  @Override
     public String toString() {
-        Date dateObject = new Date(date);
+        Date dateObject = new Date(timestamp);
         SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yy");
         String formattedDate = formatter.format(dateObject);
     
-        return  "[ Punteggio pulizia: " + cleaningScore + " ]\n" +
-                "[ Punteggio servizi: " + servicesScore + " ]\n" +
-                "[ Punteggio posizione: " + positionScore + " ]\n" +
-                "[ Punteggio qualità: " + qualityScore + " ]\n" +
+        return  "[ Punteggio pulizia: " + cleanlinessRating + " ]\n" +
+                "[ Punteggio servizi: " + servicesRating + " ]\n" +
+                "[ Punteggio posizione: " + positionRating + " ]\n" +
+                "[ Punteggio qualità: " + overallRating + " ]\n" +
                 "[ Data: " + formattedDate + " ]";
     }
 }
