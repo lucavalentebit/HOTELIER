@@ -3,7 +3,7 @@ package src.H_U_R;
 import java.util.*;
 import com.google.gson.Gson;
 
-public class Hotels {
+public class Hotel {
     private int id;
     private String name;
     private String description;
@@ -17,7 +17,7 @@ public class Hotels {
 
 
 
-    public Hotels(int id, String name, String description,
+    public Hotel(int id, String name, String description,
                                String city, int phone, List<String> services,
                                int rate, Map<String, Integer>
                                ratings, List<Review> reviews, int totalRating) {

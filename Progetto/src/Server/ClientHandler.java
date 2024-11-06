@@ -7,7 +7,7 @@ import java.util.Scanner;
 
 import src.Client.InputCheck;
 import src.H_U_R.User;
-import src.H_U_R.Hotels;
+import src.H_U_R.Hotel;
 import src.H_U_R.Review;
 
 /*class ClientHandler implements Runnable {
@@ -150,7 +150,7 @@ class ClientHandler implements Runnable {
                     break;
                 
                 case "showmybadges":
-                    handleShowMyBadges(input, output);
+                    handleShowMyBadges(output);
                     break;
                 
                 case "logout":
@@ -161,8 +161,6 @@ class ClientHandler implements Runnable {
                     output.println("Chiusura del server.");
                     dataHandler.requestShutdown();
                     break;
-
-                // Altri comandi...
 
                 default:
                     output.println("Comando sconosciuto.");
@@ -270,4 +268,14 @@ class ClientHandler implements Runnable {
         String badge = currentUser.getBadge();
         output.println(badge != null ? badge : "Nessun badge ottenuto.");
     }
+
+    private void handleLogout(BufferedReader input, PrintWriter output) throws IOException {
+        
+    }
+    private void handleSearchAllHotels(BufferedReader input, PrintWriter output) throws IOException {
+    }
+
+    private void handleInsertReview(BufferedReader input, PrintWriter output) throws IOException {
+    }
+
 }

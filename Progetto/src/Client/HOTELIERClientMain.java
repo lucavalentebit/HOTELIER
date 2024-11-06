@@ -48,7 +48,8 @@ public class HOTELIERClientMain {
         System.out.println("4. SearchAllHotels (Cerca tutti gli hotel di una città)");
         System.out.println("5. InsertReview - Inserisci una recensione");
         System.out.println("6. ShowMyBadges - Mostra i tuoi badge");
-        System.out.println("7. Exit - Esci dal programma");
+        System.out.println("7. Logout - Effettua il logout");
+        System.out.println("8. Exit - Esci dal programma");
         }
 
 	private void handleCommand(String command, Scanner scanner ){
@@ -86,6 +87,16 @@ public class HOTELIERClientMain {
                 break;
 
             case "7":
+                if(loggedIn){
+                    sendMessage("logout");
+                    loggedIn = false;
+                    System.out.println("Logout effettuato con successo.");
+                } else {
+                    System.out.println("Non sei loggato.");
+                }
+                break;
+
+            case "8":
                 sendMessage("exit");
                 System.out.println("Arrivederci!");
                 System.exit(0);
