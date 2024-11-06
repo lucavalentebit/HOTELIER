@@ -165,46 +165,26 @@ public class HOTELIERClientMain {
     }*/
 
 
-    private void register(Scanner scanner) {
+    private void register(Scanner scanner){
         try {
-            // Invia il comando "register" al server
-            output.println("register");
-    
-            // Attendi la richiesta di username
-            String serverResponse = input.readLine();
-            if (serverResponse != null && serverResponse.startsWith("Inserisci username:")) {
-                System.out.print("Username: ");
-                String username = scanner.nextLine();
-                output.println(username);
-    
-                // Attendi la risposta del server dopo aver inviato l'username
-                serverResponse = input.readLine();
-                if (serverResponse != null) {
-                    if (serverResponse.startsWith("Registrazione fallita")) {
-                        System.out.println(serverResponse);
-                        return;
-                    } else if (serverResponse.startsWith("Inserisci password:")) {
-                        // Richiedi la password all'utente
-                        System.out.print("Password: ");
-                        String password = scanner.nextLine();
-                        output.println(password);
-    
-                        // Attendi la conferma finale dal server
-                        serverResponse = input.readLine();
-                        if (serverResponse != null) {
-                            System.out.println(serverResponse);
-                        }
-                    } else {
-                        System.out.println("Risposta inaspettata dal server: " + serverResponse);
-                    }
+            System.out.println("Inserisci username: ");
+            String username = scanner.nextLine();
+            if (InputCheck.isValidUsername(username)) {
+                System.out.println("Inserisci password: ");
+                String password = scanner.nextLine();
+                if (InputCheck.isValidPassword(password)) {
+                    sendMessage("register/" + username + "/" + password);
+                } else {
+                    System.out.println("Password non valida.");
                 }
             } else {
-                System.out.println("Risposta inaspettata dal server: " + serverResponse);
+                System.out.println("Username non valido.");
             }
-        } catch (IOException e) {
+        } catch (Exception e) { 
             System.out.println("Errore durante la registrazione: " + e.getMessage());
         }
     }
+    
 
     private void login(Scanner scanner) {
         try {

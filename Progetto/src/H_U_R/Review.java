@@ -4,7 +4,6 @@ import java.util.Date;
 import java.text.SimpleDateFormat;
 
 public class Review {
-    private String username;
     private int overallRating;
     private int positionRating;
     private int cleanlinessRating;
@@ -12,9 +11,7 @@ public class Review {
     private int priceRating;
     private long timestamp;
 
-    public Review(String username, int overallRating, int positionRating, int cleanlinessRating, int servicesRating, int priceRating) {
-        this.username = username;
-        this.overallRating = overallRating;
+    public Review(int positionRating, int cleanlinessRating, int servicesRating, int priceRating) {
         this.positionRating = positionRating;
         this.cleanlinessRating = cleanlinessRating;
         this.servicesRating = servicesRating;
@@ -84,9 +81,7 @@ public class Review {
         return timestamp;
     }
 */
-public String getUsername() {
-    return username;
-}
+
 
 public int getOverallRating() {
     return overallRating;
@@ -112,10 +107,6 @@ public long getTimestamp() {
     return timestamp;
 }
 
-// Setters
-public void setUsername(String username) {
-    this.username = username;
-}
 
 public void setOverallRating(int overallRating) {
     this.overallRating = overallRating;
