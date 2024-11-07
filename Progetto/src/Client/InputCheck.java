@@ -35,7 +35,7 @@ public class InputCheck{
      * Controllo del punteggio, deve essere compreso tra 0 e 5
      */
     public static boolean isValidScore(int score) {
-        return score >= 0 && score <= 5;
+        return score >= 1 && score <= 5;
     }
     /*
      * Controllo della città, deve essere presente nella lista delle città

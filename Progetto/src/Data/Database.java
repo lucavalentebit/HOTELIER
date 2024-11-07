@@ -8,16 +8,19 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
+
 import src.H_U_R.User;
 import src.H_U_R.Review;
 
 public class Database {
+    
     private String DBFILE;
-    private Map<String, User> DB;
+    private ConcurrentHashMap<String, User> DB;
 
     public Database(String dbfilename) {
         DBFILE = dbfilename;
-        DB = new HashMap<>();
+        DB = new ConcurrentHashMap<>();
     }
 
     public boolean initDB() {
@@ -50,7 +53,8 @@ public class Database {
                                 int totalReviews = itemJsonObject.get("totalReviews").getAsInt();
                                 int experienceLevel = itemJsonObject.get("experienceLevel").getAsInt();
                                 JsonArray JsonReview = itemJsonObject.get("reviews").getAsJsonArray();
-                                List<Review> reviews = new ArrayList<>();
+                                ArrayList<Review> reviews = new ArrayList<>();
+
                                 for (JsonElement rev : JsonReview) {
                                     JsonObject reviewObject = rev.getAsJsonObject();
                                     int positionScore = reviewObject.get("positionScore").getAsInt();
@@ -61,8 +65,13 @@ public class Database {
                                     reviews.add(review);
                                 }
                                 // crea un oggetto User e aggiungilo al database
+
+            // CAMBIARE COSTRUTTORE E SALVARE TUTTI I CAMPI (username, password, BADGE, numberOfReviews, reviews, loggedIn)
+
                                 User user = new User(totalReviews, experienceLevel, reviews);
-                                DB.put(username, user);
+                                DB.put(username, user); 
+                                // CAMBIARE
+
                             } else {
                                 // se i campi dell'utente non sono presenti o non corretti, segnala un errore
                                 System.out.println("Errore: Campi utente mancanti o non corretti.");
@@ -72,8 +81,6 @@ public class Database {
                             System.out.println("Errore: Elemento non valido nel file JSON.");
                         }
                     }
-
-
                 }
             }
         } catch (FileNotFoundException e) {
@@ -119,18 +126,13 @@ public class Database {
     }
 
 
-
-
-
-
-
     public void aggiornaDB () {
         synchronized (DB) {
 
             try (FileWriter fw = new FileWriter(DBFILE); JsonWriter writer = new JsonWriter(fw)) {
                 writer.setIndent(" "); //serve a formattare il file in modo leggibile
                 writer.beginArray(); //tutti gli oggetti utente verranno inclusi all'interno di questo array
-                for (Map.Entry<String, User> entry : DB.entrySet()) {
+                for (ConcurrentHashMap.Entry<String, User> entry : DB.entrySet()) {
                     User user = entry.getValue();
                     writer.beginObject(); //oggetto singolo utente
                     writer.name("username").value(user.getUsername());
@@ -143,10 +145,10 @@ public class Database {
                         writer.beginObject();
                         //writer.name("reviewContent").value(review.getReviewContent());
                         //writer.name("score").value(review.getScore());
-                        writer.name("positionScore").value(review.getPositionRating());
-                        writer.name("cleanlinessScore").value(review.getCleanlinessRating());
-                        writer.name("serviceScore").value(review.getServicesRating());
-                        writer.name("priceScore").value(review.getPriceRating());
+                        writer.name("positionScore").value(review.getPositionScore());
+                        writer.name("cleanlinessScore").value(review.getCleanlinessScore());
+                        writer.name("serviceScore").value(review.getServiceScore());
+                        writer.name("priceScore").value(review.getPriceScore());
                         //writer.name("publicationDate").value(review.getPublicationDate().getTime()); // Converte la data in millisecondi
                         writer.endObject();
                     }
@@ -160,7 +162,15 @@ public class Database {
             }
 
         }System.out.println("Aggiornamento del database completato.");
-
+        System.out.println("Benvenuto su HOTELIER! Seleziona un'opzione:");
+        System.out.println("1. Register (Registra un nuovo utente)");
+        System.out.println("2. Login (Effettua il login)");
+        System.out.println("3. SearchHotel (Cerca un hotel)");
+        System.out.println("4. SearchAllHotels (Cerca tutti gli hotel di una città)");
+        System.out.println("5. InsertReview - Inserisci una recensione");
+        System.out.println("6. ShowMyBadges - Mostra i tuoi badge");
+        System.out.println("7. Logout - Effettua il logout");
+        System.out.println("8. Exit - Esci dal programma");
     }
 
     /*public void printUsersInDatabase() {

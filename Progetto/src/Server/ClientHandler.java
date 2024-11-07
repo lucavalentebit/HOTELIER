@@ -5,6 +5,7 @@ import java.net.Socket;
 import java.util.List;
 import java.util.Scanner;
 
+import com.google.gson.stream.JsonReader;
 
 import src.Client.InputCheck;
 import src.H_U_R.*;
@@ -66,21 +67,21 @@ class ClientHandler implements Runnable {
                     handleLogin(part[1], part[2]);
                     break;
 
-                // case "searchhotel":
-                //     handleSearchHotel(input, output);
-                //     break;
+                case "searchhotel":
+                   // handleSearchHotel(part[1], part[2]);
+                     break;
                 
-                // case "searchallhotels":
-                //     handleSearchAllHotels(input, output);
-                //     break;
+                case "searchallhotels":
+                    // handleSearchAllHotels(part[1]);
+                     break;
                 
-                // case "insertreview":
+                case "insertreview":
                 //     handleInsertReview(input, output);
                 //     break;
                 
-                // case "showmybadges":
+                case "showmybadges":
                 //     handleShowMyBadges(output);
-                //     break;
+                     break;
                 
                 // case "logout":
                 //     handleLogout(input, output);
@@ -152,29 +153,24 @@ class ClientHandler implements Runnable {
     
     }
 
-    private void handleSearchHotel(BufferedReader input, PrintWriter output) throws IOException {
-    // Richiedi il nome dell'hotel
-    output.println("Inserisci il nome dell'hotel da cercare:");
-    String hotelName = input.readLine();
+//    private void handleSearchHotel(String hotelName, String city) {
+//        try (JsonReader reader = new JsonReader(new FileReader(HOTELS_FILE))) {
+//            reader.beginArray();
+//            while (reader.hasNext()) {
+//                Hotel h = gson.fromJson(reader, Hotel.class);
+//                if (h.getCity().equals(city) && h.getName().equals(hotel)) {
+//                    checkIfPresentAndAdd(hotels, h);
+//                    return h.toString();
+//                }
+//            }
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//        return "Hotel not found";
+//
+//    }
 
-    if (hotelName == null || hotelName.trim().isEmpty()) {
-        output.println("Nome hotel non valido.");
-        return;
-    }
 
-    // Carica gli hotel dal DataHandlerHotels
-    List<Hotel> hotels = dataHandlerHotels.searchHotelByName(hotelName);
-
-    // Invia i risultati al client
-    if (hotels == null || hotels.isEmpty()) {
-        output.println("Nessun hotel trovato con il nome specificato.");
-    } else {
-        for (Hotel hotel : hotels) {
-            output.println(hotel.toString());
-        }
-    }
-    output.println("END");
-}
 
     // private void handleShowMyBadges(PrintWriter output) {
     //     if (currentUser == null || !currentUser.isLoggedIn()) {

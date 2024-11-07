@@ -24,7 +24,7 @@ public class HOTELIERClientMain {
     private void start() {
         try {
             socket = new Socket(SERVER_ADDRESS, SERVER_PORT);
-            input = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+            input = new BufferedReader(new InputStreamReader(socket.getInputStream())); //DOMANDA 
             output = new PrintWriter(socket.getOutputStream(), true);
             System.out.println("Connessione al server " + SERVER_ADDRESS + " sulla porta " + SERVER_PORT + " avvenuta con successo.");
             
@@ -41,15 +41,26 @@ public class HOTELIERClientMain {
 
 
         private void showMenu() {
-        System.out.println("Benvenuto su HOTELIER! Seleziona un'opzione:");
-        System.out.println("1. Register (Registra un nuovo utente)");
-        System.out.println("2. Login (Effettua il login)");
-        System.out.println("3. SearchHotel (Cerca un hotel)");
-        System.out.println("4. SearchAllHotels (Cerca tutti gli hotel di una città)");
-        System.out.println("5. InsertReview - Inserisci una recensione");
-        System.out.println("6. ShowMyBadges - Mostra i tuoi badge");
-        System.out.println("7. Logout - Effettua il logout");
-        System.out.println("8. Exit - Esci dal programma");
+            //RIMETTERE APPOSTO NUMERI
+            if(loggedIn){
+                System.out.println("Benvenuto su HOTELIER! Seleziona un'opzione:");
+                System.out.println("3. SearchHotel (Cerca un hotel)");
+                System.out.println("4. SearchAllHotels (Cerca tutti gli hotel di una città)");
+                System.out.println("5. InsertReview - Inserisci una recensione");
+                System.out.println("6. ShowMyBadges - Mostra i tuoi badge");
+                System.out.println("7. Logout - Effettua il logout");
+                System.out.println("8. Exit - Esci dal programma");
+            } else {
+                System.out.println("Benvenuto su HOTELIER! Seleziona un'opzione:");
+                System.out.println("1. Register (Registra un nuovo utente)");
+                System.out.println("2. Login (Effettua il login)");
+                System.out.println("3. SearchHotel (Cerca un hotel)");
+                System.out.println("4. SearchAllHotels (Cerca tutti gli hotel di una città)");
+                System.out.println("5. InsertReview - Inserisci una recensione");
+                System.out.println("6. ShowMyBadges - Mostra i tuoi badge");
+                System.out.println("7. Logout - Effettua il logout");
+                System.out.println("8. Exit - Esci dal programma");
+            }
         }
 
 	private void handleCommand(String command, Scanner scanner ){
@@ -165,6 +176,7 @@ public class HOTELIERClientMain {
     }*/
 
 
+
     private void register(Scanner scanner){
         try {
             System.out.println("Inserisci username: ");
@@ -187,89 +199,36 @@ public class HOTELIERClientMain {
     
 
     private void login(Scanner scanner) {
-        try {
-            // Invia il comando "login" al server
-            output.println("login");
-    
-            // Attende la richiesta di username
-            String serverResponse = input.readLine();
-            if (serverResponse != null && serverResponse.startsWith("Inserisci username:")) {
-                System.out.print("Username: ");
-                String username = scanner.nextLine();
-                output.println(username);
-            }
-    
-            // Attende la richiesta di password
-            serverResponse = input.readLine();
-            if (serverResponse != null && serverResponse.startsWith("Inserisci password:")) {
-                System.out.print("Password: ");
-                String password = scanner.nextLine();
-                output.println(password);
-            }
-    
-            // Attende la risposta finale
-            serverResponse = input.readLine();
-            if (serverResponse != null) {
-                System.out.println(serverResponse);
-                if (serverResponse.equals("Login effettuato con successo.")) {
-                    loggedIn = true;
-                }
-            }
-    
-        } catch (IOException e) {
-            System.out.println("Errore durante il login: " + e.getMessage());
+        System.out.println("Inserisci username: ");
+        String username = scanner.nextLine();
+        System.out.println("Inserisci password: ");
+        String password = scanner.nextLine();
+        sendMessage("login/" + username + "/" + password);
         }
-    }
+
 
     private void searchHotel(Scanner scanner) {
-        try {
-            // Invia il comando "searchhotel" al server
-            output.println("searchhotel");
-    
-            // Richiedi il nome dell'hotel
-            System.out.print("Inserisci il nome dell'hotel da cercare: ");
-            String hotelName = scanner.nextLine();
-            output.println(hotelName);
-    
-            // Ricevi la risposta dal server
-            String serverResponse;
-            while ((serverResponse = input.readLine()) != null && !serverResponse.equals("END")) {
-                System.out.println(serverResponse);
-            }
-    
-        } catch (IOException e) {
-            System.out.println("Errore durante la ricerca dell'hotel: " + e.getMessage());
+        // Richiedi il nome dell'hotel
+        System.out.print("Inserisci il nome dell'hotel da cercare: ");
+        String hotelName = scanner.nextLine();
+        System.out.println("Inserisci la città: ");
+        String city = scanner.nextLine();
+        output.println("searchhotel/"+hotelName+"/"+city);
         }
-    }
+    
 
     private void searchAllHotels(Scanner scanner) {
-        try {
-            // Invia il comando "searchallhotels" al server
-            output.println("searchallhotels");
-    
-            // Richiedi il nome della città
-            System.out.print("Inserisci la città: ");
-            String city = scanner.nextLine();
-            output.println(city);
-    
-            // Ricevi la risposta dal server
-            String serverResponse;
-            while ((serverResponse = input.readLine()) != null && !serverResponse.equals("END")) {
-                System.out.println(serverResponse);
-            }
-    
-        } catch (IOException e) {
-            System.out.println("Errore durante la ricerca degli hotel: " + e.getMessage());
-        }
+        // Richiedi il nome della città
+        System.out.print("Inserisci il nome della città: ");
+        String city = scanner.nextLine();
+        output.println("searchallhotels/"+city);
     }
 
     private void insertReview(Scanner scanner) {
         try {
-            output.println("insertreview");
     
             System.out.print("Inserisci il nome dell'hotel: ");
             String hotelName = scanner.nextLine();
-            output.println(hotelName);
     
             System.out.print("Punteggio generale (0-5): ");
             int overallRating = Integer.parseInt(scanner.nextLine());
@@ -282,11 +241,8 @@ public class HOTELIERClientMain {
             System.out.print("Punteggio Prezzo (0-5): ");
             int priceRating = Integer.parseInt(scanner.nextLine());
     
-            output.println(overallRating);
-            output.println(positionRating);
-            output.println(cleanlinessRating);
-            output.println(serviceRating);
-            output.println(priceRating);
+
+            output.println("insertreview/"+hotelName+"/" + overallRating + "/" + positionRating + "/" + cleanlinessRating + "/" + serviceRating + "/" + priceRating);
     
             String serverResponse = input.readLine();
             if (serverResponse != null) {

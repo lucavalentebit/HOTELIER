@@ -1,26 +1,31 @@
 package src.H_U_R;
 
+import src.Server.Ratings;
+import java.time.LocalDate;
 import java.util.*;
 import com.google.gson.Gson;
 
 public class Hotel {
-    private int id;
+    private String id;
     private String name;
     private String description;
     private String city;
-    private int phone;
+    private String phone;
     private List<String> services;
-    private int rate;
-    private Map<String, Integer> ratings;
-    private List<Review> reviews;
+    private Double rate;
+    private Ratings ratings;
+    private ArrayList<Review>reviews;
     private int totalRating;
+    private double localRank;
+    private LocalDate lastReviewDate;
 
 
 
-    public Hotel(int id, String name, String description,
-                               String city, int phone, List<String> services,
-                               int rate, Map<String, Integer>
-                               ratings, List<Review> reviews, int totalRating) {
+    public Hotel(String id, String name, String description,
+                               String city, String phone, List<String> services,
+                               Double rate, Ratings
+                               ratings, ArrayList<Review>reviews ) 
+    {
         this.id = id;
         this.name = name;
         this.description = description;
@@ -30,13 +35,13 @@ public class Hotel {
         this.rate = rate;
         this.ratings = ratings;
         this.reviews = reviews;
-        this.totalRating = totalRating;
+        
     }
 
     /*
      * getters
      */
-    public int getId() {
+    public String getId() {
         return id;
     }
     public String getName() {
@@ -48,16 +53,16 @@ public class Hotel {
     public String getCity() {
         return city;
     }
-    public int getPhone() {
+    public String getPhone() {
         return phone;
     }
     public List<String> getServices() {
         return services;
     }
-    public int getRate() {
+    public Double getRate() {
         return rate;
     }
-    public Map<String, Integer> getRatings() {
+    public Ratings getRatings() {
         return ratings;
     }
     public List<Review> getReviews() {
@@ -72,7 +77,7 @@ public class Hotel {
      * setters
      */
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -88,7 +93,7 @@ public class Hotel {
         this.city = city;
     }
 
-    public void setPhone(int phone) {
+    public void setPhone(String phone) {
         this.phone = phone;
     }
 
@@ -96,15 +101,15 @@ public class Hotel {
         this.services = services;
     }
 
-    public void setRate(int rate) {
+    public void setRate(Double rate) {
         this.rate = rate;
     }
 
-    public void setRatings(Map<String, Integer> ratings) {
+    public void setRatings(Ratings ratings) {
         this.ratings = ratings;
     }
 
-    public void setReviews(List<Review> reviews) {
+    public void setReviews(ArrayList<Review> reviews) {
         this.reviews = reviews;
     }
 
@@ -141,6 +146,28 @@ public class Hotel {
     public String toStringJSON() {
         Gson gson = new Gson();
         return gson.toJson(this);
+    }
+
+    public void addReview( int cleanlinessScore, int positionScore, int serviceScore, int priceScore) {
+
+        this.lastReviewDate = LocalDate.now();
+        Review newReview = new Review(cleanlinessScore, positionScore, serviceScore, priceScore);
+        this.reviews.add(newReview);
+        //System.out.println("Recensione aggiunta: " + newReview.getReviewContent());
+
+    }
+
+
+    public LocalDate getLastReviewDate() {
+        return lastReviewDate;
+    }
+
+    public void setLocalRank(double localRank) {
+        this.localRank = localRank;
+    }
+
+    public double getLocalRank() {
+        return localRank;
     }
 
 }

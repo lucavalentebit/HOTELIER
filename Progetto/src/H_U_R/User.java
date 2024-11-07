@@ -10,6 +10,10 @@ public class User {
     private List<Review> review;
     private boolean loggedIn;
 
+
+// TODO PERCHÈ 2 COSTRUTTORI? NE SERVE SOLO 1 CHE INIZIALIZZA TUTTI I CAMPI
+
+    //agiungere username e password
     //Deserializzazione di un utente da DB
     public User(int badge, int numberOfReviews, List<Review> review) {
         this.badge = badge;
@@ -28,6 +32,8 @@ public class User {
         this.review = new ArrayList<>();
         this.loggedIn = false;
     }
+
+// FINO A QUI. METTERE I CAMPI GIUSTI ANCHE SE STANDARD 
 
     /*
      * Getters
@@ -64,6 +70,9 @@ public class User {
     public int getNumvberReviews(){
          return this.numberOfReviews;
     }
+    public boolean getLoggedIn(){
+        return this.loggedIn;
+   }
 
 
     @Override
@@ -98,7 +107,7 @@ public class User {
         }
     }
 
-    public String getExperienceLevelName() {
+    public String getBadgeName() {
         switch (badge) {
             case 4:
                 return "Contributore Super";

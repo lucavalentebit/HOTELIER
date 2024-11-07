@@ -17,3 +17,16 @@ Giovedì devo porcodio finire
 
 6/11
 Devo definire l'algoritmo di ranking entro stasera per lo show delle cose 
+
+7/11
+-Sistemare path
+-Va visto l'hotel file però dev'essere qualcosa di simile user
+-DEVI GUARDARE IL CAZZO DI PROGETTO DI Nicola,  !!!!LeggiHotelsFile.java!!!!
+-Sistema login, logout, showmybadges, SearchHotel,SearchAllHotels
+-Multicast da risolvere domani sera
+-Per quanto riguarda il ranking, 
+- 1) Devo fare un metodo che mi restituisce il ranking di un hotel
+- 2) Devo fare un metodo che mi restituisce il ranking di tutti gli hotel
+- 3) Devo fare un metodo che mi restituisce il badge di un utente
+
+8/11
