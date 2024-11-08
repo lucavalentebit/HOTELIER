@@ -1,13 +1,12 @@
 package src.Client;
 
 import java.io.*;
-import java.net.DatagramPacket;
-import java.net.DatagramSocket;
+
 import java.net.Socket;
 import java.util.Scanner;
+import src.Server.Condivisore;
 
-import com.google.gson.Gson;
-import com.google.gson.JsonObject;
+
 
 public class HOTELIERClientMain {
     private static final String SERVER_ADDRESS = "localhost";
@@ -16,6 +15,8 @@ public class HOTELIERClientMain {
     private BufferedReader input;
     private PrintWriter output;
     private Socket socket;
+    private static Condivisore condividi;
+    private static Thread condividiThread;
 
     public static void main(String[] args) {
         HOTELIERClientMain client = new HOTELIERClientMain();
@@ -25,8 +26,11 @@ public class HOTELIERClientMain {
     private void start() {
         try {
             socket = new Socket(SERVER_ADDRESS, SERVER_PORT);
-            input = new BufferedReader(new InputStreamReader(socket.getInputStream())); // MI FARÀ UNA DOMANDA
+            input = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             output = new PrintWriter(socket.getOutputStream(), true);
+            condividi = new Condivisore(8080, "225.225.225.225");
+            condividiThread = new Thread(condividi);
+            condividiThread.start();
             System.out.println("Connessione al server " + SERVER_ADDRESS + " sulla porta " + SERVER_PORT
                     + " avvenuta con successo.");
 

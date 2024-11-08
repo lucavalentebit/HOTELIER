@@ -16,6 +16,7 @@ public class Share {
     public void notify(Hotel hotel) {
         // manda in multicast le notifiche
         String msg = hotel.getName();
+        System.out.println("Notifying: " + msg);
         System.out.println(msg.getBytes() + " " + msg.length());
 
         try {

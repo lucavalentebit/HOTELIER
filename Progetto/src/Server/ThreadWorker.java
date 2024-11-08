@@ -4,14 +4,11 @@ import java.io.*;
 import java.net.Socket;
 import java.net.SocketException;
 import java.util.List;
-import java.util.ArrayList;
-import java.util.Scanner;
-import java.util.concurrent.ConcurrentHashMap;
+
 import java.util.concurrent.atomic.AtomicInteger;
 
 import src.Data.*;
 import src.H_U_R.*;
-import src.Client.InputCheck;
 
 public class ThreadWorker implements Runnable {
     private final Socket socket;
@@ -22,15 +19,17 @@ public class ThreadWorker implements Runnable {
     private String clientUsername;
     private final AtomicInteger activeConnections;
     private final HOTELIERServerMain server;
-    // private static final String HOTELS_FILE = "src./Data/Hotels.json";
+    private Share share;
+    
 
     public ThreadWorker(Socket socket, Database db, LeggiHotelsFile hf, AtomicInteger activeConnections,
-            HOTELIERServerMain server) throws IOException {
+            HOTELIERServerMain server, Share share) throws IOException {
         this.socket = socket;
         this.db = db;
         this.hf = hf;
         this.activeConnections = activeConnections;
         this.server = server;
+        this.share = share;
         this.reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
         this.writer = new PrintWriter(socket.getOutputStream(), true);
     }
@@ -200,6 +199,14 @@ public class ThreadWorker implements Runnable {
         try {
             hf.leggiHotelsFile(); // Leggo hotel dal file
             List<Hotel> hotelsInCity = hf.searchHotelsByCity(city);
+            
+            for(Hotel hot : hotelsInCity){
+                if(hot.getLocalRank() == 1){
+                    System.out.println("Notifica inviata");
+                    share.notify(hot);
+                    break;
+                }
+            }
 
             if (!hotelsInCity.isEmpty()) {
                 writer.println("Hotel Trovati:");
@@ -227,15 +234,6 @@ public class ThreadWorker implements Runnable {
             writer.println("ERRORE: Parametri insufficienti per inserire una recensione.");
             return;
         }
-
-        System.out.println("questo e' parts[0] \n" + parts[0] + "\n");
-        System.out.println("questo e' parts[1] \n" + parts[1] + "\n");
-        System.out.println("questo e' parts[2] \n" + parts[2] + "\n");
-        System.out.println("questo e' parts[3] \n" + parts[3] + "\n");
-        System.out.println("questo e' parts[4] \n" + parts[4] + "\n");
-        System.out.println("questo e' parts[5] \n" + parts[5] + "\n");
-        System.out.println("questo e' parts[6] \n" + parts[6] + "\n");
-        System.out.println("questo e' parts[7] \n" + parts[7] + "\n");
         
 
         String hotelName = parts[1];

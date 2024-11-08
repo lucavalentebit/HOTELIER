@@ -1,10 +1,7 @@
 package src.H_U_R;
 
-import java.util.Date;
-
 import src.Server.Ratings;
 
-import java.text.SimpleDateFormat;
 
 public class Review {
     private int cleanlinessScore;

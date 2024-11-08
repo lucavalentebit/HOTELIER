@@ -37,8 +37,8 @@
   {
     "username": "Carletto",
     "password": "Leclerc1",
-    "totalReviews": 1,
-    "experienceLevel": 4,
+    "totalReviews": 4,
+    "experienceLevel": 1,
     "reviews": [
       {
         "positionScore": 5,
@@ -94,27 +94,9 @@
   {
     "username": "Antonio",
     "password": "Password123",
-    "totalReviews": 4,
+    "totalReviews": 1,
     "experienceLevel": 1,
     "reviews": [
-      {
-        "positionScore": 5,
-        "cleanlinessScore": 5,
-        "serviceScore": 5,
-        "priceScore": 5
-      },
-      {
-        "positionScore": 5,
-        "cleanlinessScore": 5,
-        "serviceScore": 5,
-        "priceScore": 5
-      },
-      {
-        "positionScore": 2,
-        "cleanlinessScore": 2,
-        "serviceScore": 2,
-        "priceScore": 2
-      },
       {
         "positionScore": 5,
         "cleanlinessScore": 5,
