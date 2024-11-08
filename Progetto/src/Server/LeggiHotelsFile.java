@@ -63,7 +63,7 @@ public class LeggiHotelsFile {
                 HT.put(name, hotel);
             }
         }
-        catch (IOException e) {
+        catch (IOException e) {            
             e.printStackTrace();
         }
     }
@@ -171,7 +171,7 @@ public class LeggiHotelsFile {
         JsonArray jsonArray = new JsonArray();
 
         // leggere il contenuto attuale del file JSON e memorizzarlo in una struttura dati
-        try (FileReader fileReader = new FileReader(System.getProperty("user.dir") +  System.getProperty("file.separator") + "Hotels.json")) {
+        try (FileReader fileReader = new FileReader("src/Data/Hotels.json")) {
             JsonElement fileElement = JsonParser.parseReader(fileReader);
             jsonArray = fileElement.getAsJsonArray();
 
@@ -220,7 +220,7 @@ public class LeggiHotelsFile {
         }
 
         // scrivo l'intera struttura dati aggiornata nel file JSON
-        try (FileWriter fileWriter = new FileWriter(System.getProperty("user.dir") +  System.getProperty("file.separator") + "Hotels.json")) {
+        try (FileWriter fileWriter = new FileWriter("src/Data/Hotels.json")) {
             gson.toJson(jsonArray, fileWriter);
             System.out.println("Scrittura su file JSON completata con successo.");
         } catch (IOException e) {

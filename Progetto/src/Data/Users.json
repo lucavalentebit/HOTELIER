@@ -31,13 +31,43 @@
     "username": "Carletto",
     "password": "Leclerc1",
     "totalReviews": 1,
-    "experienceLevel": 1,
+    "experienceLevel": 3,
     "reviews": [
       {
         "positionScore": 5,
         "cleanlinessScore": 5,
         "serviceScore": 5,
         "priceScore": 4
+      },
+      {
+        "positionScore": 5,
+        "cleanlinessScore": 5,
+        "serviceScore": 5,
+        "priceScore": 5
+      },
+      {
+        "positionScore": 4,
+        "cleanlinessScore": 4,
+        "serviceScore": 4,
+        "priceScore": 4
+      },
+      {
+        "positionScore": 4,
+        "cleanlinessScore": 4,
+        "serviceScore": 5,
+        "priceScore": 3
+      },
+      {
+        "positionScore": 5,
+        "cleanlinessScore": 5,
+        "serviceScore": 5,
+        "priceScore": 5
+      },
+      {
+        "positionScore": 5,
+        "cleanlinessScore": 5,
+        "serviceScore": 5,
+        "priceScore": 5
       }
     ]
   },
@@ -51,8 +81,15 @@
   {
     "username": "Antonio",
     "password": "Password123",
-    "totalReviews": 0,
-    "experienceLevel": 0,
-    "reviews": []
+    "totalReviews": 1,
+    "experienceLevel": 1,
+    "reviews": [
+      {
+        "positionScore": 5,
+        "cleanlinessScore": 5,
+        "serviceScore": 5,
+        "priceScore": 5
+      }
+    ]
   }
 ]

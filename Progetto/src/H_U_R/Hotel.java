@@ -153,6 +153,10 @@ public class Hotel {
         this.lastReviewDate = LocalDate.now();
         Review newReview = new Review(cleanlinessScore, positionScore, serviceScore, priceScore);
         this.reviews.add(newReview);
+        
+        System.out.println("Recensione aggiunta: " + newReview.toString());
+        System.out.println("Recensioni totali: " + this.reviews.size());
+
         //System.out.println("Recensione aggiunta: " + newReview.getReviewContent());
 
     }
