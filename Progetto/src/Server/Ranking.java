@@ -51,9 +51,9 @@ public class Ranking {
         }
     }
 
-    //il metodo assegna dei pesi alle caratteristiche delle recensioni e poi le somma per il punteggio totale
+    //Questo metodo calcola il punteggio totale di un hotel in base ai punteggi di qualità, quantità e attualità delle recensioni
     public static double calculateTotalScore(double qualityScore, int quantityScore, double actualityScore) {
-        // definisco i valori di peso (ponderazione) che ha ogni particolarità della recensione
+        // Vado a definire i pesi per ogni parametro
         double weightQuality = 0.5; // 50% per la qualità
         double weightQuantity = 0.35; // 35% per la quantità
         double weightActuality = 0.15; // 15% per l'attualità

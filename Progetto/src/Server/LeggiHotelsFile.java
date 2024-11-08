@@ -126,7 +126,13 @@ public class LeggiHotelsFile {
         int totalServices = 0;
         int totalQuality = 0;
 
-        // calcola la somma totale dei punteggi per ciascun criterio di valutazione
+        System.out.println("Aggiornamento del rating dell'hotel " + hotel.getName() + " in corso...");
+        System.out.println("Numero di recensioni: " + hotel.getReviews().size());
+        System.out.println("Rating attuale: " + hotel.getRate());
+        System.out.println("Ratings attuali: " + hotel.getRatings());
+
+        
+
         for (Review review : hotel.getReviews()) {
             Ratings reviewRatings = review.getRatings();
             totalCleaning += reviewRatings.getCleaning();

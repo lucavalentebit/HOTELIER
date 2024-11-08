@@ -140,7 +140,7 @@ public class Hotel {
                 "--- Servizi: " + services + "\n" +
                 "--- Valutazione Globale: " + rate + "\n" +
                 "--- Valutazioni: \n" + reviews + "\n" +
-                "__________________________________________";
+                "__________________________________________"+" \n";
     }
 
     public String toStringJSON() {

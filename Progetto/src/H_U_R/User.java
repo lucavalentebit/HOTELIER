@@ -15,11 +15,13 @@ public class User {
 
     //agiungere username e password
     //Deserializzazione di un utente da DB
-    public User(int badge, int numberOfReviews, List<Review> review) {
+    public User(String username, String password, int badge, int numberOfReviews, List<Review> reviews, boolean loggedIn) {
+        this.username = username;
+        this.password = password;
         this.badge = badge;
         this.numberOfReviews = numberOfReviews;
-        this.review = review;
-        //this.loggedIn = loggedIn;
+        this.review = reviews;
+        this.loggedIn = loggedIn;
     }
 
     //SE UN UTENTE NON E' PRESENTE A DB ALLORA VIENE CREATO UN NUOVO UTENTE
@@ -28,7 +30,7 @@ public class User {
         this.username = username;
         this.password = password;
         this.numberOfReviews = 0;
-        //this.bad = 0;  //i nuovi utenti iniziano con livello 0
+        this.badge = 0;  //i nuovi utenti iniziano con livello 0
         this.review = new ArrayList<>();
         this.loggedIn = false;
     }
@@ -50,6 +52,13 @@ public class User {
     public int getNumberOfReviews() {
         return numberOfReviews;
     }
+    public boolean getLoggedIn(){
+        return this.loggedIn;
+   }
+
+    /*
+     * Setters
+     */
 
     public void isLoggedIn() {
         this.loggedIn = true;
@@ -70,9 +79,7 @@ public class User {
     public int getNumvberReviews(){
          return this.numberOfReviews;
     }
-    public boolean getLoggedIn(){
-        return this.loggedIn;
-   }
+    
 
 
     @Override

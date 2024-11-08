@@ -1,1 +1,58 @@
-[]
+[
+  {
+    "username": "test2",
+    "password": "Testare34",
+    "totalReviews": 0,
+    "experienceLevel": 0,
+    "reviews": []
+  },
+  {
+    "username": "Luca",
+    "password": "Lucaval123",
+    "totalReviews": 0,
+    "experienceLevel": 0,
+    "reviews": []
+  },
+  {
+    "username": "User",
+    "password": "Password123",
+    "totalReviews": 0,
+    "experienceLevel": 0,
+    "reviews": []
+  },
+  {
+    "username": "test",
+    "password": "Testare23",
+    "totalReviews": 0,
+    "experienceLevel": 0,
+    "reviews": []
+  },
+  {
+    "username": "Carletto",
+    "password": "Leclerc1",
+    "totalReviews": 1,
+    "experienceLevel": 1,
+    "reviews": [
+      {
+        "positionScore": 5,
+        "cleanlinessScore": 5,
+        "serviceScore": 5,
+        "priceScore": 4
+      }
+    ]
+  },
+  {
+    "username": "paolo",
+    "password": "Paolo1234",
+    "totalReviews": 40,
+    "experienceLevel": 40,
+    "reviews": []
+  },
+  {
+    "username": "Antonio",
+    "password": "Password123",
+    "totalReviews": 0,
+    "experienceLevel": 0,
+    "reviews": []
+  }
+]

@@ -68,7 +68,7 @@ public class Database {
 
             // CAMBIARE COSTRUTTORE E SALVARE TUTTI I CAMPI (username, password, BADGE, numberOfReviews, reviews, loggedIn)
 
-                                User user = new User(totalReviews, experienceLevel, reviews);
+                                User user = new User(username,password,totalReviews, experienceLevel, reviews, false);
                                 DB.put(username, user); 
                                 // CAMBIARE
 
@@ -126,8 +126,96 @@ public class Database {
     }
 
 
-    public void aggiornaDB () {
+    // public void aggiornaDB () {
+    //     synchronized (DB){
+    //         try (FileWriter fw = new FileWriter(DBFILE);
+    //              JsonWriter writer = new JsonWriter(fw)) {
+    
+    //             writer.setIndent("  "); // Imposta l'indentazione per una migliore leggibilità
+    //             writer.beginArray(); // Inizia l'array principale degli utenti
+    
+    //             for (ConcurrentHashMap.Entry<String, User> entry : DB.entrySet()) {
+    //                 User user = entry.getValue();
+    
+    //                 writer.beginObject(); // Inizia l'oggetto utente
+    
+    //                 writer.name("username").value(user.getUsername());
+    //                 writer.name("password").value(user.getPassword());
+    //                 writer.name("totalReviews").value(user.getNumberOfReviews());
+    //                 writer.name("experienceLevel").value(user.getBadge());
+    
+    //                 // Scrivi le recensioni dell'utente
+    //                 writer.name("reviews");
+    //                 writer.beginArray(); // Inizia l'array delle recensioni
+    
+    //                 List<Review> userReviews = user.getReview();
+    //                 if (userReviews != null && !userReviews.isEmpty()) {
+    //                     for (Review review : userReviews) {
+    //                         writer.beginObject(); // Inizia l'oggetto recensione
+    //                         writer.name("positionScore").value(review.getPositionScore());
+    //                         writer.name("cleanlinessScore").value(review.getCleanlinessScore());
+    //                         writer.name("serviceScore").value(review.getServiceScore());
+    //                         writer.name("priceScore").value(review.getPriceScore());
+    //                         writer.endObject(); // Termina l'oggetto recensione
+    //                     }
+    //                 }
+
+    //                 writer.endArray();// Chiude l'array delle recensioni, anche se vuoto
+    //                 writer.endObject(); // Termina l'oggetto utente
+    //             }
+    
+    //             writer.endArray(); // Termina l'array principale degli utenti
+    
+    //         } catch (IOException e) {
+    //             e.printStackTrace();
+    //         }
+    //     }
+    public void aggiornaDB() {
         synchronized (DB) {
+            try (FileWriter fw = new FileWriter(DBFILE);
+                 JsonWriter writer = new JsonWriter(fw)) {
+    
+                writer.setIndent("  "); // Imposta l'indentazione per una migliore leggibilità
+                writer.beginArray(); // Inizia l'array principale degli utenti
+    
+                for (ConcurrentHashMap.Entry<String, User> entry : DB.entrySet()) {
+                    User user = entry.getValue();
+    
+                    writer.beginObject(); // Inizia l'oggetto utente
+    
+                    writer.name("username").value(user.getUsername());
+                    writer.name("password").value(user.getPassword());
+                    writer.name("totalReviews").value(user.getNumberOfReviews());
+                    writer.name("experienceLevel").value(user.getBadge());
+    
+                    // Scrivi le recensioni dell'utente
+                    writer.name("reviews");
+                    writer.beginArray(); // Inizia l'array delle recensioni
+    
+                    List<Review> userReviews = user.getReview();
+                    if (userReviews != null && !userReviews.isEmpty()) {
+                        for (Review review : userReviews) {
+                            writer.beginObject();
+                            writer.name("positionScore").value(review.getPositionScore());
+                            writer.name("cleanlinessScore").value(review.getCleanlinessScore());
+                            writer.name("serviceScore").value(review.getServiceScore());
+                            writer.name("priceScore").value(review.getPriceScore());
+                            writer.endObject();
+                        }
+                    }
+                    writer.endArray(); // Termina l'array delle recensioni
+                    writer.endObject(); // Termina l'oggetto utente
+                }
+    
+                writer.endArray(); // Termina l'array principale degli utenti
+    
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+ /*{
 
             try (FileWriter fw = new FileWriter(DBFILE); JsonWriter writer = new JsonWriter(fw)) {
                 writer.setIndent(" "); //serve a formattare il file in modo leggibile
@@ -159,19 +247,9 @@ public class Database {
                 writer.endArray();
             } catch (IOException e) {
                 e.printStackTrace();
-            }
+            }*/
 
-        }System.out.println("Aggiornamento del database completato.");
-        System.out.println("Benvenuto su HOTELIER! Seleziona un'opzione:");
-        System.out.println("1. Register (Registra un nuovo utente)");
-        System.out.println("2. Login (Effettua il login)");
-        System.out.println("3. SearchHotel (Cerca un hotel)");
-        System.out.println("4. SearchAllHotels (Cerca tutti gli hotel di una città)");
-        System.out.println("5. InsertReview - Inserisci una recensione");
-        System.out.println("6. ShowMyBadges - Mostra i tuoi badge");
-        System.out.println("7. Logout - Effettua il logout");
-        System.out.println("8. Exit - Esci dal programma");
-    }
+    
 
     /*public void printUsersInDatabase() {
         System.out.println("Elenco degli utenti nel database:");
