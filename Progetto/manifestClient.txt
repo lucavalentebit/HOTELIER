@@ -1,0 +1,2 @@
+Main-Class: HOTELIERClientMain
+Class-Path: src/libs/gson-2.11.0.JsonReader

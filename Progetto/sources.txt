@@ -1,0 +1,13 @@
+src/Client/HOTELIERClientMain.java
+src/Client/InputCheck.java
+src/Server/ThreadWorker.java
+src/Server/Share.java
+src/Server/HOTELIERServerMain.java
+src/Server/Ratings.java
+src/Server/Condivisore.java
+src/Server/Ranking.java
+src/Server/LeggiHotelsFile.java
+src/H_U_R/Hotel.java
+src/H_U_R/User.java
+src/H_U_R/Review.java
+src/Data/Database.java

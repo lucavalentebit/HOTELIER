@@ -37,8 +37,8 @@
   {
     "username": "Carletto",
     "password": "Leclerc1",
-    "totalReviews": 1,
-    "experienceLevel": 4,
+    "totalReviews": 4,
+    "experienceLevel": 1,
     "reviews": [
       {
         "positionScore": 5,
@@ -94,8 +94,8 @@
   {
     "username": "Antonio",
     "password": "Password123",
-    "totalReviews": 4,
-    "experienceLevel": 1,
+    "totalReviews": 1,
+    "experienceLevel": 4,
     "reviews": [
       {
         "positionScore": 5,
